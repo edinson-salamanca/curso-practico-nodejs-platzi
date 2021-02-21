@@ -1,26 +1,26 @@
 const db = {
   user: [
     {
-      id: 1,
+      id: '1',
       name: 'Carlos',
     },
   ],
 };
 
-function list(tabla) {
+async function list(tabla) {
   return db[tabla];
 }
 
-function get(tabla, id) {
-  let col = lis(tabla);
+async function get(tabla, id) {
+  let col = await list(tabla);
   return col.filter((item) => item.id === id)[0] || null;
 }
 
-function upsert(tabla, data) {
+async function upsert(tabla, data) {
   db[collection].push(data);
 }
 
-function remove(tabla, id) {
+async function remove(tabla, id) {
   return true;
 }
 

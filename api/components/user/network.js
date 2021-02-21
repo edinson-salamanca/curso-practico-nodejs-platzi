@@ -5,16 +5,34 @@ const Controller = require('./index');
 
 const router = express.Router();
 
-router.get('/', function (req, res) {
-  Controller.list()
-    .then((lista) => response.success(req, res, lista, 200))
-    .catch((err) => response.error(req, res, err.message, 500));
-});
+router.get('/', list);
+router.get('/:id', get);
+router.post('/', upsert);
+router.put('/', upsert);
 
-router.get('/:id', function (req, res) {
-  Controller.get(req.params.id)
-    .then((user) => response.success(req, res, user, 200))
-    .catch((err) => response.error(req, res, err.message, 500));
-});
+async function list(req, res) {
+  try {
+    let list = await Controller.list();
+    response.success(req, res, list, 200);
+  } catch (error) {
+    response.error(req, res, error.message, 500);
+  }
+}
 
+async function get(req, res) {
+  try {
+    let user = await Controller.get(req.params.id);
+    response.success(req, res, user, 200);
+  } catch (error) {
+    response.error(req, res, error.message, 500);
+  }
+}
+
+async function upsert(req, res) {
+  try {
+    let user = Controller.upsert(req.body);
+  } catch (error) {
+    response.error(req, res, error.message, 500);
+  }
+}
 module.exports = router;

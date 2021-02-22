@@ -30,7 +30,8 @@ async function get(req, res) {
 
 async function upsert(req, res) {
   try {
-    let user = Controller.upsert(req.body);
+    let user = await Controller.upsert(req.body);
+    response.success(req, res, user, 201);
   } catch (error) {
     response.error(req, res, error.message, 500);
   }

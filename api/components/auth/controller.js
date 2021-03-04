@@ -16,7 +16,7 @@ module.exports = function (injectedStore) {
     const isEquals = await bcrypt.compare(password, data.password);
 
     if (isEquals) {
-      return aut.sign(data);
+      return aut.sign({ ...data });
     }
 
     // return bcrypt.compare(password, data.password).then((isEquals) => {
